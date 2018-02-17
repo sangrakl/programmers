@@ -1,0 +1,40 @@
+{% extends "leave/layout.html" %}
+
+{% block title %}
+개별 휴가 상세
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <form action='', method="get">
+    <input type="text" name='q' value='{{ q }}' />
+    <input type="submit" value='검색' />
+  </form>  
+</div>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td><B>이름</B></td>
+            <td><B>휴가시작일</B></td>
+            <td><B>휴가종료일</B></td>
+            <td><B>휴가일수</B></td>
+            <td><B>적요</B></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for leave in leaves %}
+
+        <tr>
+            <td> <a href= "?q={{ leave.employee.name }}"> {{ leave.employee.name }} </a></td>
+            <td> {{ leave.startDate }}</td>
+            <td> {{ leave.endDate }} </td>
+            <td> 휴가일수 계산</td>
+            <td> {{ leave.briefs }}</td>
+        </tr>
+
+        {% endfor %}
+        <tbody>
+    </table>
+{% endblock %}

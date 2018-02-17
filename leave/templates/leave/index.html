@@ -1,0 +1,37 @@
+{% extends "leave/layout.html" %}
+
+{% block title %}
+개별 휴가 목록
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <a href = "detail"><button type="button" class="btn btn-info btn-lg btn-block">상세 내역
+    확인하기</button></a>
+</div>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td><B>이름</B></td>
+            <td><B>입사일</B></td>
+            <td><B>휴가일</B></td>
+            <td><B>사용일</B></td>
+            <td><B>잔여일</B></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for employee in employees %}
+
+        <tr>
+            <td> <a href= "detail/?q={{ employee.name }}"> {{ employee.name }}</a></td>
+            <td> {{ employee.employed_date.year}}/{{employee.employed_date.month}}/{{employee.employed_date.day}}</td>
+            <td> {{ employee.givenLeave }} </td>
+            <td> {{ employee.usedLeave }}</td>
+            <td> </td>
+        </tr>
+        {% endfor %}
+        <tbody>
+    </table>
+{% endblock %}
