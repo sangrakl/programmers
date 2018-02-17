@@ -6,6 +6,9 @@
 
 {% block content %}
 <div class="container">
+  <a href = "{% url "social:begin" "google-oauth2" %}"><button type="button" class="btn btn-info btn-lg btn-block">로그인하기</button></a>
+</div>
+<div class="container">
   <a href = "detail"><button type="button" class="btn btn-info btn-lg btn-block">상세 내역
     확인하기</button></a>
 </div>
