@@ -1,0 +1,22 @@
+{% extends "leave/layout.html" %}
+
+{% block title %}
+휴가 신청하기
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-info" type="submit">저장</button>
+      </form>
+      <a class="badge" href="{% url 'leave:home' %}">리스트로 돌아가기</a>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

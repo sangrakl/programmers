@@ -1,40 +1,78 @@
 {% extends "leave/layout.html" %}
 
 {% block title %}
-개별 휴가 목록
+컨비니언스 휴가 시스템
 {% endblock %}
 
 {% block content %}
 <div class="container">
-  <a href = "{% url "social:begin" "google-oauth2" %}"><button type="button" class="btn btn-info btn-lg btn-block">로그인하기</button></a>
-</div>
-<div class="container">
-  <a href = "detail"><button type="button" class="btn btn-info btn-lg btn-block">상세 내역
-    확인하기</button></a>
-</div>
+  <div class="row">
+    <div class="col-sm-12 mb-5">
 
-<div class="container">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <td><B>이름</B></td>
-            <td><B>입사일</B></td>
-            <td><B>휴가일</B></td>
-            <td><B>사용일</B></td>
-            <td><B>잔여일</B></td>
-        </tr>
+      <!-- <a class="btn btn-primary" href = "{% url "social:begin" "google-oauth2" %}" role="button">로그인하기</a> -->
+
+      <div class="alert alert-info">
+        <h4>구현 내용</h4>
+        <ul>
+          <li>입사일 기준으로 휴가일 자동 계산하기</li>
+          <li>반차 계산 자동으로 해주기</li>
+        </ul>
+        <br>
+        <h4>구현 해야할 내용</h4>
+        <ul>
+          <li>주말을 자동으로 연차일에서 빼주기</li>
+          <li>Ajax/jQuery 활용해서 비동기 처리 하기</li>
+          <li>휴가 신청, 수정, 삭제하기</li>
+          <li>지각 등록, ''지각 -> 연차' 버튼 만들기 </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th><B>이름</B></th>
+            <th><B>입사일</B></th>
+            <th><B>휴가일</B></th>
+            <th><B>사용일</B></th>
+            <th><B>잔여일</B></th>
+            <th><B>이번 달 지각 일수</B></th>
+            <th><B>신청버튼</B></th>
+          </tr>
         </thead>
         <tbody>
-        {% for employee in employees %}
+          {% for employee in employees %}
 
-        <tr>
-            <td> <a href= "detail/?q={{ employee.name }}"> {{ employee.name }}</a></td>
+          <tr>
+            <td> <a class="font-weight-bold text-muted" href= "detail/?q={{ employee.name }}"> {{ employee.name }}</a></td>
             <td> {{ employee.employed_date.year}}/{{employee.employed_date.month}}/{{employee.employed_date.day}}</td>
             <td> {{ employee.givenLeave }} </td>
             <td> {{ employee.usedLeave }}</td>
-            <td> </td>
-        </tr>
-        {% endfor %}
-        <tbody>
-    </table>
-{% endblock %}
+            <td> {{ employee.leftLeave }}</td>
+            <td> {{ employee.late }} 회</td>
+            <td>
+              <a class="btn btn-warning" href = "{% url "leave:late_cal" employee.id %}" role="button">지각
+                신청</a>
+                <a class="btn btn-info" href = "{% url "leave:regist" employee.id %}" role="button">휴가
+                  신청 하기</a>
+                </td>
+                <!-- <td>
+                <form action = "/late/{{employee.id}}/" method="post">
+                {% csrf_token %}
+                <button name="late" value="{{employee.late}}">지각을 연차로 만드는 마법</button>
+              </form>
+            </td> -->
+
+          </tr>
+          {% endfor %}
+          <tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    {% endblock %}

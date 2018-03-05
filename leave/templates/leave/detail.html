@@ -9,29 +9,36 @@
   <form action='', method="get">
     <input type="text" name='q' value='{{ q }}' />
     <input type="submit" value='검색' />
-  </form>  
+  </form>
 </div>
 
 <div class="container">
-    <table class="table table-striped">
-        <thead>
+    <table class="table">
+        <thead class="thead-light">
         <tr>
-            <td><B>이름</B></td>
-            <td><B>휴가시작일</B></td>
-            <td><B>휴가종료일</B></td>
-            <td><B>휴가일수</B></td>
-            <td><B>적요</B></td>
+            <th><B>이름</B></th>
+            <th><B>휴가시작일</B></th>
+            <th><B>휴가종료일</B></th>
+            <th><B>휴가일수</B></th>
+            <th><B>적요</B></th>
+            <th><B>수정 및 삭제</B></th>
         </tr>
         </thead>
         <tbody>
         {% for leave in leaves %}
 
         <tr>
-            <td> <a href= "?q={{ leave.employee.name }}"> {{ leave.employee.name }} </a></td>
-            <td> {{ leave.startDate }}</td>
-            <td> {{ leave.endDate }} </td>
-            <td> 휴가일수 계산</td>
+            <td> <a class="font-weight-bold text-muted" href= "?q={{ leave.employee.name }}"> {{ leave.employee.name }} </a></td>
+            <td> {{ leave.startDate.year }} / {{ leave.startDate.month }} /
+              {{ leave.startDate.day }} / {{ leave.startTime }}</td>
+            <td> {{ leave.endDate.year }} / {{ leave.endDate.month }} /
+              {{ leave.endDate.day }} / {{ leave.endTime }} </td>
+            <td> {{ leave.leaveLen }}</td>
             <td> {{ leave.briefs }}</td>
+            <td>
+              <a class="btn btn-warning" href = "{% url "leave:edit" leave.id %}" role="button">수정</a>
+              <a class="btn btn-info" href = "{% url "leave:delete" leave.id %}" role="button">삭제</a>
+            </td>
         </tr>
 
         {% endfor %}
