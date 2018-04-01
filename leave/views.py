@@ -93,8 +93,30 @@ def edit(request, pk):
         if form.is_valid():
             leave = form.save(commit=False)
             leave.save()
-            return redirect('../../leave/detail')
+            return redirect('../../detail')
     else:
         form = RegistForm(instance=leave)
 
     return render(request, 'leave/regist.html', {'form': form})
+
+
+def contact(request):
+    if request.method == 'Post':
+        form = ContactForm(request.Post)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            sender = form.cleaned_data['sender']
+            cc_myself = form.cleaned_data['cc_myself']
+
+            recipients = ['rocky@cvkorea.co.kr']
+            if cc_myself:
+                recipients.append(sender)
+
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form = ContactForm()
+
+    return render(request, 'leave/contact.html', {
+        'form': form
+    })

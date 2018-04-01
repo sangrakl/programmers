@@ -1,0 +1,53 @@
+{% extends "leave/layout.html" %}
+
+{% block title %}
+의견 남기기
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>의견 남기기</h1>
+      <blockquote>
+        <p>서비스 개선을 위한 의견을 자유롭게 남겨주세요</p>
+      </blockquote>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="fieldWrapper">
+          {{ form.subject.errors }}
+          <label for="id_subject">Email subject:</label>
+          {{ form.subject }}
+        </div>
+        <div class="fieldWrapper">
+          {{ form.message.errors }}
+          <label for="id_message">Your message:</label>
+          {{ form.message }}
+        </div>
+        <div class="fieldWrapper">
+          {{ form.sender.errors }}
+          <label for="id_sender">Your email address:</label>
+          {{ form.sender }}
+        </div>
+        <div class="fieldWrapper">
+          {{ form.cc_myself.errors }}
+          <label for="id_cc_myself">CC yourself?</label>
+          {{ form.cc_myself }}
+        </div>
+        <button class="btn btn-info" type="submit">보내기</button>
+      </form>
+      <a class="badge" href="{% url 'leave:home' %}">메인으로 돌아가기</a>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

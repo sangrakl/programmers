@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^late/(?P<pk>\d+)/$', views.late_cal, name = 'late_cal'),
     url(r'^delete/(?P<pk>\d+)/$', views.delete, name = 'delete'),
     url(r'^edit/(?P<pk>\d+)/$', views.edit, name = 'edit'),
+    url(r'^contact/$', views.contact, name = 'contact'),
 ]
